@@ -31,7 +31,6 @@ const inquirer = require('inquirer');
 const generateMarkdown = require('./utils/generateMarkdown');
 // TODO: Create an array of questions for user input
 const questions = [
-        ([
             {
                 type: 'input',
                 message: 'What is your project\'s name?',
@@ -81,11 +80,6 @@ const questions = [
                 name: 'email',
                 message: 'What is your email address?'
             }
-
-        ])
-        (function(answer){
-            console.log(answer);
-        })
 ];
 
 // TODO: Create a function to write README file
@@ -94,10 +88,8 @@ const questions = [
 // TODO: Create a function to initialize app
 function init() {
     inquirer.prompt(questions).then(answer => {
-        fs.writeFile('README.md', generateMarkdown(data), (err) => {
-            if (err) {
-                console.error(err)
-            }
+        fs.writeFile('README.md', generateMarkdown(data), err => {
+            if (err) return err;
 
             console.log('Success! Your file is located in the dist folder!')
         })
