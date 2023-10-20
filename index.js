@@ -1,30 +1,3 @@
-// Example prompt
-// const inquirer = require('inquirer');
-
-// inquirer
-//     .prompt([
-//         {
-//             type: 'input',
-//             message: 'What is your name?',
-//             name: 'fullName'
-//         },
-//         {
-//             type: 'list',
-//             message: 'What languages do you know?',
-//             name: 'languages',
-//             choices: ['html', 'css', 'javascript', 'react', 'node']
-//         },
-//         {
-//             type: 'list',
-//             message: 'What is your preferred method of communication?',
-//             name: 'commMethod',
-//             choices: ['text', 'phone call', 'email', 'letter']
-//         },
-//     ])
-//     .then(function(answer){
-//         console.log(answer);
-//     })
-
 // TODO: Include packages needed for this application
 const fs = require('fs');
 const inquirer = require('inquirer');
@@ -33,18 +6,19 @@ const generateMarkdown = require('./utils/generateMarkdown');
 const questions = [
             {
                 type: 'input',
+                name: 'title',
                 message: 'What is your project\'s name?',
-                name: 'title'
             },
             {
                 type: 'input',
+                name: 'description',
                 message: 'Please write a short description of your project',
-                name: 'description'
+                
             },
             {
                 type: 'list',
-                message: 'What kind of license should your project have?',
                 name: 'license',
+                message: 'What kind of license should your project have?',
                 choices: ['MIT', 'APACHE 2.0', 'GPL 3.0', 'BSD 3', 'None']
             },
             {
@@ -87,8 +61,8 @@ const questions = [
 
 // TODO: Create a function to initialize app
 function init() {
-    inquirer.prompt(questions).then(answer => {
-        fs.writeFile('README.md', generateMarkdown(data), err => {
+    inquirer.prompt(questions).then(data => {
+        fs.writeFile('./dist/README.md', generateMarkdown(data), err => {
             if (err) return err;
 
             console.log('Success! Your file is located in the dist folder!')
